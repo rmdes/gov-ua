@@ -47,7 +47,6 @@ def check(url):
     try:
         resp = requests.get(url, timeout=30)
         print(colored(f"ok {url}", "green"))
-
         return
     except Exception as e:
         print(colored(f"error: {url}", "red"))
