@@ -17,9 +17,11 @@ def main():
         data.writeheader()
 
     with multiprocessing.Pool(50) as pool:
-        for result in pool.map(check, urls):
-            if result:
-                data.writerow(result)
+        while True:
+            print(f'checking {len(urls)} urls')
+            for result in pool.map(check, urls):
+                if result:
+                    data.writerow(result)
 
 def check(url):
     try:
