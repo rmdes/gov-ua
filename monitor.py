@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import csv
-import json
-import uuid
 import pathlib
 import datetime
 import requests
