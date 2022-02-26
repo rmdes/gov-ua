@@ -4,10 +4,8 @@ import csv
 import datetime
 import requests
 
-data = csv.DictWriter(
-    open('errors.csv', 'a'),
-    fieldnames=['time', 'url', 'error']
-)
+fh = open('errors.csv', 'a')
+data = csv.DictWriter(fh, fieldnames=['time', 'url', 'error'])
 data.writeheader()
 
 for url in open('urls.txt'):
@@ -22,3 +20,4 @@ for url in open('urls.txt'):
             "url": url,
             "error": str(e)
         })
+        fh.flush()
