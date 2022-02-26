@@ -20,23 +20,23 @@ def main():
     if needs_header:
         data.writeheader()
 
-    with multiprocessing.Pool(50) as pool:
-        while True:
+    while True:
+        started = datetime.datetime.now()
 
-            started = datetime.datetime.now()
+        # start up 50 processes to check the URLs
+        with multiprocessing.Pool(50) as pool:
             print(f'{started} checking {len(urls)} urls')
-
             for result in pool.map(check, urls):
                 if result:
                     result['run'] = started.isoformat()
                     data.writerow(result)
 
-            # sleep for a bit if it took us less than sleep_secs to collect
-            elapsed = datetime.datetime.now() - started
-            if elapsed.total_seconds() < sleep_secs:
-                t = sleep_secs - elapsed.total_seconds()
-                print(f"sleeping {t} seconds")
-                time.sleep(t)
+        # sleep for a bit
+        elapsed = datetime.datetime.now() - started
+        if elapsed.total_seconds() < sleep_secs:
+            t = sleep_secs - elapsed.total_seconds()
+            print(f"sleeping {t} seconds")
+            time.sleep(t)
 
 def check(url):
     try:
