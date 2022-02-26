@@ -9,7 +9,7 @@ import multiprocessing
 def main():
     urls = open('urls.txt').read().splitlines()
 
-    needs_header = pathlib.Path('data.csv').is_file()
+    needs_header = not pathlib.Path('data.csv').is_file()
     fh = open('data.csv', 'a')
     data = csv.DictWriter(fh, fieldnames=['time', 'url', 'error'])
 
