@@ -26,6 +26,10 @@ def main():
         data.writeheader()
 
     while True:
+        # make sure csv is up to date after each run
+        fh.flush()
+
+        # time that the run started
         started = datetime.datetime.now()
 
         # start up 50 processes to check the URLs
@@ -36,7 +40,7 @@ def main():
                     result["run"] = started.isoformat()
                     data.writerow(result)
 
-        # sleep for a bit
+        # sleep for a bit based on how long the run took
         elapsed = datetime.datetime.now() - started
         if elapsed.total_seconds() < sleep_secs:
             t = sleep_secs - elapsed.total_seconds()
